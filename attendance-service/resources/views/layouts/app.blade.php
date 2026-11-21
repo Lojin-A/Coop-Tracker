@@ -10,14 +10,19 @@
         .sidebar .nav-link { color: rgba(255,255,255,.65); }
         .sidebar .nav-link.active { color: #fff; font-weight: 600; }
         .brand-dot { width: 28px; height: 28px; background: #1f9a8e; border-radius: 6px; }
+        .sidebar-logo {
+            margin: 8px 16px 0;
+        }
+        .sidebar-logo img {
+            filter: brightness(0) invert(1);
+        }
     </style>
 </head>
 <body>
 <div class="d-flex">
     <nav class="sidebar vh-100 p-3 position-fixed">
-        <div class="d-flex align-items-center gap-2 mb-4 text-white">
-            <img src="{{ asset('images/logo.png') }}" alt="Coop Tracker" style="height: 44px; width: auto;">
-            <strong>{{ __('attendance.app_name') }}</strong>
+        <div class="sidebar-logo">
+            <img src="{{ asset('images/logo.png') }}" alt="Coop Tracker" style="height: 130px; width: auto;">
         </div>
         <ul class="nav nav-pills flex-column gap-1">
             <li class="nav-item"><a class="nav-link" href="#">{{ __('attendance.sidebar_dashboard') }}</a></li>

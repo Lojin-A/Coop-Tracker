@@ -7,7 +7,6 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/coop.css') }}" rel="stylesheet">
-
 </head>
 <body>
 
@@ -20,12 +19,21 @@
                 <span class="fw-bold" style="font-size: 17px;">Coop Tracker</span>
             </div>
 
-            @include('partials.sidemenu')
+            @yield('sidebar')
         </nav>
 
         <main class="main">
-            <p class="eyebrow mb-1">@yield('role')</p>
-            <h1 class="fw-bold mb-4" style="font-size: 28px;">@yield('title')</h1>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                <div>
+                    <p class="eyebrow mb-1">@yield('role')</p>
+                    <h1 class="fw-bold mb-0" style="font-size: 28px;">@yield('title')</h1>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    @yield('actions')
+                </div>
+            </div>
+
             @yield('content')
         </main>
 

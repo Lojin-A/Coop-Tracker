@@ -2,6 +2,17 @@
 
 @section('role', 'Coordinator')
 @section('title', 'Training overview')
+@section('sidebar')
+    @include('partials.sidemenu')
+@endsection
+@section('actions')
+    <button type="button" class="btn-quiet px-3">EN | العربية</button>
+    <button type="button" class="btn-accent px-3">+ New placement</button>
+@endsection
+
+@endsection
+
+@endsection
 
 @section('content')
 
@@ -13,8 +24,7 @@
                     <div class="card-body">
                         <p class="text-muted-2 mb-1" style="font-size: 14px;">{{ $kpi['label'] }}</p>
                         <p class="num fw-bold mb-1" style="font-size: 32px;">{{ $kpi['value'] }}</p>
-                        <p class="mb-0 fw-semibold text-{{ $kpi['color'] === 'muted' ? 'muted-2' : $kpi['color'] }}"
-                           style="font-size: 13px;">{{ $kpi['note'] }}</p>
+                        <p class="mb-0 fw-semibold {{ $kpi['class'] }}" style="font-size: 13px;">{{ $kpi['note'] }}</p>
                     </div>
                 </div>
             </div>

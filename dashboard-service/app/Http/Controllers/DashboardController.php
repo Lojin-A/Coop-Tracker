@@ -12,4 +12,11 @@ class DashboardController extends Controller
             'stats' => $stats->coordinator(),
         ]);
     }
+
+    public function supervisor(StatsService $stats)
+    {
+        return view('dashboard.supervisor', [
+            'stats' => $stats->supervisor(),
+        ]);
+    }
 }

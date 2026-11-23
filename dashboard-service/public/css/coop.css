@@ -1,0 +1,254 @@
+/* ============================================================
+   Coop Tracker — shared design system
+   Source of truth: the team design canvas (Coop Tracker Dashboards)
+
+   Put a copy of this file in EVERY service at:
+       public/css/coop.css
+
+   Then in that service's layout, after the Bootstrap link:
+       <link href="{{ asset('css/coop.css') }}" rel="stylesheet">
+
+   Do not change colours here on your own — if something needs to
+   change, agree it with the team and update all four copies.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap');
+
+/* ---------- 1. Tokens ---------- */
+
+:root {
+    --navy:    #123B5D;
+    --accent:  #1D6FA5;
+    --teal:    #35B8A6;
+    --ink:     #172B3A;
+    --muted:   #718096;
+    --line:    #E2E8F0;
+    --track:   #EDF2F7;
+    --warn:    #8A3B07;
+    --warn-bg: #FCE9DC;
+    --page:    #F5F8FA;
+    --surface: #FFFFFF;
+
+    --radius-card: 12px;
+    --radius-btn:  8px;
+    --sidebar-w:   220px;
+}
+
+/* ---------- 2. Base ---------- */
+
+body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+/* numbers: KPI values, counts in tables and charts */
+.num {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+a {
+    color: var(--accent);
+}
+
+a:hover {
+    color: var(--navy);
+}
+
+/* ---------- 3. Sidebar ---------- */
+
+.sidebar {
+    flex: 1 1 var(--sidebar-w);
+    background: var(--navy);
+    color: #E6EEF5;
+    padding: 24px 16px;
+}
+
+/* works with plain <a> links and with Bootstrap .nav-link */
+.sidebar a,
+.sidebar .nav-link {
+    display: block;
+    color: #C3D3E2;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: var(--radius-btn);
+    margin-bottom: 6px;
+}
+
+.sidebar a:hover,
+.sidebar .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar a.active,
+.sidebar .nav-link.active {
+    color: #fff;
+    background: rgba(53, 184, 166, 0.22);
+    font-weight: 600;
+}
+
+/* the logo mark in the sidebar — turns any dark logo white */
+.sidebar-logo img {
+    filter: brightness(0) invert(1);
+    height: 40px;
+    width: auto;
+}
+
+/* ---------- 4. Main area ---------- */
+
+.main {
+    flex: 999 1 560px;
+    min-width: 0;
+    padding: 32px;
+}
+
+/* small uppercase role label above the page title */
+.eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 4px 0 24px;
+}
+
+/* ---------- 5. Cards ---------- */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title,
+.card h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* KPI card pieces */
+.kpi-label {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.kpi-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.kpi-note {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ---------- 6. Text helpers ---------- */
+
+.text-muted-2 { color: var(--muted); }
+.text-warn    { color: var(--warn); }
+.text-accent  { color: var(--accent); }
+.text-navy    { color: var(--navy); }
+
+/* ---------- 7. Buttons ---------- */
+
+.btn-accent {
+    background: var(--accent);
+    color: #fff;
+    border: 0;
+    border-radius: var(--radius-btn);
+    min-height: 44px;
+    font-weight: 600;
+}
+
+.btn-accent:hover {
+    background: var(--navy);
+    color: #fff;
+}
+
+.btn-quiet {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid #CBD5E0;
+    border-radius: var(--radius-btn);
+    min-height: 44px;
+    font-weight: 600;
+}
+
+/* ---------- 8. Badges ---------- */
+
+.badge-late,
+.badge-warn {
+    background: var(--warn-bg);
+    color: var(--warn);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.badge-ok {
+    background: #DCF2EE;
+    color: #14605A;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.badge-pending {
+    background: var(--track);
+    color: var(--muted);
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+/* ---------- 9. Progress bars ---------- */
+
+.bar-track {
+    background: var(--track);
+    border-radius: 6px;
+    height: 14px;
+}
+
+.bar-fill {
+    background: var(--accent);
+    border-radius: 6px;
+    height: 14px;
+}
+
+/* ---------- 10. Tables ---------- */
+
+.table {
+    font-size: 14px;
+}
+
+.table thead th {
+    color: var(--muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+}
+
+.table tbody td {
+    border-bottom: 1px solid var(--track);
+}
+
+/* ---------- 11. Arabic / RTL ---------- */
+
+html[dir="rtl"] body {
+    font-family: 'IBM Plex Sans Arabic', 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+html[dir="rtl"] .eyebrow {
+    letter-spacing: normal;
+}

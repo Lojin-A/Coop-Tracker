@@ -28,15 +28,19 @@ class StatsService
         ];
     }
 
-    public function supervisor()
+    public function supervisor($live = null)
     {
+        $isLive  = $live !== null;
+        $pending = $live['pending_count'] ?? 9;
+
         return [
             'company' => 'SABIC',
+            'live'    => $isLive,
             'kpis' => [
-                ['label' => 'My students',       'value' => '6', 'note' => 'all active',       'class' => 'text-accent'],
-                ['label' => 'Pending approvals', 'value' => '9', 'note' => 'attendance days',  'class' => 'text-warn'],
-                ['label' => 'Reports to review', 'value' => '4', 'note' => '2 new',            'class' => 'text-danger-2'],
-                ['label' => 'Evaluations due',   'value' => '2', 'note' => 'end of training',  'class' => 'text-muted-2'],
+                ['label' => 'My students',       'value' => '6',      'note' => 'all active',       'class' => 'text-accent'],
+                ['label' => 'Pending approvals', 'value' => $pending, 'note' => $isLive ? 'live from attendance service' : 'sample data', 'class' => 'text-warn'],
+                ['label' => 'Reports to review', 'value' => '4',      'note' => '2 new',            'class' => 'text-danger-2'],
+                ['label' => 'Evaluations due',   'value' => '2',      'note' => 'end of training',  'class' => 'text-muted-2'],
             ],
             'pending' => [
                 ['student' => 'Sara Khan',   'date' => 'Sun 4 Oct', 'in' => '07:58', 'out' => '15:02', 'hours' => '7.0'],
@@ -49,11 +53,32 @@ class StatsService
                 ['Reem Harbi', 296], ['Lama Zahrani', 255], ['Hind Qahtani', 188],
             ], 640),
             'reports' => [
-                ['student' => 'Noura Ali',   'week' => 'Week 7', 'date' => 'today, 09:12', 'is_new' => true],
-                ['student' => 'Lama Zahrani','week' => 'Week 7', 'date' => 'today, 08:40', 'is_new' => true],
-                ['student' => 'Sara Khan',   'week' => 'Week 7', 'date' => 'Thu 22 Oct',   'is_new' => false],
-                ['student' => 'Reem Harbi',  'week' => 'Week 6', 'date' => 'Thu 15 Oct',   'is_new' => false],
+                ['student' => 'Noura Ali',    'week' => 'Week 7', 'date' => 'today, 09:12', 'is_new' => true],
+                ['student' => 'Lama Zahrani', 'week' => 'Week 7', 'date' => 'today, 08:40', 'is_new' => true],
+                ['student' => 'Sara Khan',    'week' => 'Week 7', 'date' => 'Thu 22 Oct',   'is_new' => false],
+                ['student' => 'Reem Harbi',   'week' => 'Week 6', 'date' => 'Thu 15 Oct',   'is_new' => false],
             ],
+        ];
+    }
+
+    public function student()
+    {
+        return [
+            'name'     => 'Sara Khan',
+            'company'  => 'SABIC',
+            'hours'    => 312,
+            'required' => 640,
+            'percent'  => 49,
+            'end_date' => '12 Jan 2027',
+            'today'    => 'Checked in at 07:56 · not checked out yet',
+            'weeks'    => $this->studentWeeks(),
+            'reports'  => [
+                ['week' => 'Week 6', 'status' => 'Waiting for review', 'pill' => 'pill-wait'],
+                ['week' => 'Week 5', 'status' => 'Reviewed',           'pill' => 'pill-done'],
+                ['week' => 'Week 4', 'status' => 'Reviewed',           'pill' => 'pill-done'],
+                ['week' => 'Week 3', 'status' => 'Reviewed',           'pill' => 'pill-done'],
+            ],
+            'next_week' => 7,
         ];
     }
 
@@ -86,6 +111,23 @@ class StatsService
                 'x'     => round(60 + $i * (460 / 7)),
                 'y'     => round(190 - ($value - 28) / 14 * 150),
                 'label' => 'W' . ($i + 1),
+            ];
+        }
+
+        return $out;
+    }
+
+    private function studentWeeks()
+    {
+        $values = [34, 38, 40, 36, 41, 39, 40, 44];
+        $max    = 44;
+        $out    = [];
+
+        foreach ($values as $i => $value) {
+            $out[] = [
+                'value'  => $value,
+                'label'  => 'W' . ($i + 1),
+                'height' => round($value / $max * 140) . 'px',
             ];
         }
 

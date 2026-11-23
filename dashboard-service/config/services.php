@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+        'attendance' => [
+        'url' => env('ATTENDANCE_SERVICE_URL'),
+    ],
 
 ];

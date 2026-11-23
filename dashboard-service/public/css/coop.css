@@ -273,6 +273,7 @@ html[dir="rtl"] .eyebrow {
     padding: 12px;
 }
 
+
 .list-row.is-new {
     background: #FFF5F5;
     border-color: #FBD5D5;
@@ -292,4 +293,84 @@ html[dir="rtl"] .eyebrow {
     border: 1px solid #CBD5E0;
     border-radius: 6px;
     font-weight: 600;
+}
+/* ---------- 13. Student dashboard ---------- */
+
+.card-navy {
+    background: var(--navy);
+    color: #fff;
+    border: 0;
+    border-radius: var(--radius-card);
+}
+
+.card-navy .sub {
+    color: #C3D3E2;
+    font-size: 14px;
+}
+
+.btn-on-navy {
+    background: #fff;
+    color: var(--navy);
+    border: 0;
+    border-radius: 10px;
+    min-height: 52px;
+    font-size: 16px;
+    font-weight: 700;
+    width: 100%;
+}
+
+.progress-track {
+    background: var(--track);
+    border-radius: 8px;
+    height: 18px;
+}
+
+.progress-fill {
+    background: var(--teal);
+    border-radius: 8px;
+    height: 18px;
+}
+
+.pill-wait {
+    background: #FFF1D6;
+    color: #7A4A00;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pill-done {
+    background: #DDF4F0;
+    color: #1B6B60;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.chart-cols {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 180px;
+    border-bottom: 1px solid #CBD5E0;
+    padding: 0 4px;
+}
+
+.chart-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    height: 100%;
+}
+
+.chart-bar {
+    width: 100%;
+    max-width: 36px;
+    background: var(--accent);
+    border-radius: 4px 4px 0 0;
 }

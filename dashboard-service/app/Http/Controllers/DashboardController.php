@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AttendanceApi;
 use App\Services\StatsService;
 
 class DashboardController extends Controller
@@ -13,10 +14,17 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function supervisor(StatsService $stats)
+    public function supervisor(StatsService $stats, AttendanceApi $attendance)
     {
         return view('dashboard.supervisor', [
-            'stats' => $stats->supervisor(),
+            'stats' => $stats->supervisor($attendance->stats()),
+        ]);
+    }
+
+    public function student(StatsService $stats)
+    {
+        return view('dashboard.student', [
+            'stats' => $stats->student(),
         ]);
     }
 }

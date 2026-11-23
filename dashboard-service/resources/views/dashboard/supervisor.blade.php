@@ -12,7 +12,17 @@
 @endsection
 
 @section('content')
-
+    @if ($stats['live'])
+        <p class="mb-3" style="font-size: 13px;">
+            <span class="badge-ok">● Live</span>
+            <span class="text-muted-2">connected to the attendance service</span>
+        </p>
+    @else
+        <p class="mb-3" style="font-size: 13px;">
+            <span class="badge-pending">● Offline</span>
+            <span class="text-muted-2">attendance service not reachable — showing sample data</span>
+        </p>
+    @endif
     {{-- KPI cards --}}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3 mb-4">
         @foreach ($stats['kpis'] as $kpi)

@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'app_name' => 'كوب تراكر',
-
     'approvals_title' => 'اعتماد الحضور',
     'my_attendance_title' => 'حضوري',
 

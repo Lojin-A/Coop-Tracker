@@ -2,27 +2,28 @@
 <html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title') · {{ __('attendance.app_name') }}</title>
+    <title>@yield('title') · Coop Tracker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap{{ app()->getLocale() == 'ar' ? '.rtl' : '' }}.min.css" rel="stylesheet">
+    <link href="{{ asset('css/coop.css') }}" rel="stylesheet">
     <style>
-        body { background: #f4f5f3; }
-        .sidebar { width: 220px; background: #0b2a4a; }
-        .sidebar .nav-link { color: rgba(255,255,255,.65); }
-        .sidebar .nav-link.active { color: #fff; font-weight: 600; }
-        .brand-dot { width: 28px; height: 28px; background: #1f9a8e; border-radius: 6px; }
-        .sidebar-logo {
-            margin: 8px 16px 0;
-        }
-        .sidebar-logo img {
-            filter: brightness(0) invert(1);
-        }
+        /* Only what coop.css doesn't cover: the sidebar needs a fixed width
+           because it uses position: fixed (coop.css's flex-based width
+           doesn't apply to fixed-position elements). */
+        .sidebar { width: 220px; }
+
+        /* coop.css forces every sidebar logo to solid white via
+           brightness(0) invert(1). We want this specific logo to keep its
+           own color instead, so this cancels just that one filter — the
+           shared coop.css file itself is left untouched. */
+        .sidebar-logo img { filter: none; }
     </style>
 </head>
 <body>
 <div class="d-flex">
-    <nav class="sidebar vh-100 p-3 position-fixed">
-        <div class="sidebar-logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Coop Tracker" style="height: 130px; width: auto;">
+    <nav class="sidebar vh-100 position-fixed">
+        <div class="sidebar-logo mb-3 d-flex align-items-center gap-2">
+            <img src="{{ asset('images/logo-mark-light.png') }}" alt="Coop Tracker">
+            <span class="fw-bold" style="color: #fff; font-size: 20px;">Coop Tracker</span>
         </div>
         <ul class="nav nav-pills flex-column gap-1">
             <li class="nav-item"><a class="nav-link" href="#">{{ __('attendance.sidebar_dashboard') }}</a></li>

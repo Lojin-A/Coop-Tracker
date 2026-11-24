@@ -1,8 +1,6 @@
 <?php
 
 return [
-    'app_name' => 'Coop Tracker',
-
     'approvals_title' => 'Attendance approvals',
     'my_attendance_title' => 'My attendance',
 

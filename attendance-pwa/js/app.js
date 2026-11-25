@@ -4,7 +4,7 @@
 // (e.g. a Laragon virtual host like http://attendance-service.test, or a
 // different port). This matches the APP_URL in attendance-service/.env
 // at the time this was written.
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = "http://localhost:8002/api";
 
 const els = {
   placementInput: document.getElementById("placement-id"),

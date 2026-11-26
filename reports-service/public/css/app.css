@@ -1,52 +1,32 @@
-/* Coop Tracker design */
-:root {
-  --navy: #123a5c;
-  --navy-2: #1c4d73;
-  --teal: #2bb3a3;
-  --primary: #1f6391;
-  --primary-dark: #184f74;
-  --bg: #f3f6f9;
-  --border: #e3e8ee;
-  --text: #12324d;
-  --muted: #6b7a8a;
+/* Reports service – only what coop.css doesn't cover.
+   Shared team styles (colors, sidebar, cards, tables) live in coop.css */
+
+/* Sidebar brand: logo + name */
+.sidebar .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 4px;
+  margin-bottom: 24px;
 }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
-  font-size: .9rem;
-}
-
-/* Sidebar */
-.sidebar { background: var(--navy); min-height: 100vh; padding: 1.25rem .9rem; }
-.brand { display: flex; align-items: center; gap: .6rem; color: #fff; font-weight: 600; margin-bottom: 1.5rem; text-decoration: none; }
-.brand:hover { color: #fff; }
-.brand-logo { width: 28px; height: 28px; border-radius: 6px; background: var(--teal); color: var(--navy); display: grid; place-items: center; font-weight: 700; }
-.sidebar .nav-link { color: #c9d6e2; border-radius: 6px; padding: .5rem .75rem; margin-bottom: .15rem; }
-.sidebar .nav-link:hover { color: #fff; background: rgba(255,255,255,.06); }
-.sidebar .nav-link.active { background: var(--navy-2); color: #fff; font-weight: 600; }
-
-/* Page header */
-.page-eyebrow { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .15rem; }
-[dir="rtl"] .page-eyebrow { letter-spacing: 0; }
-.page-title { font-weight: 700; font-size: 1.5rem; margin: 0; }
+.sidebar .brand:hover { color: #fff; background: none; }
 
 /* Language switch */
-.lang-switch { border: 1px solid var(--border); background: #fff; border-radius: 6px; padding: .3rem .7rem; font-size: .8rem; white-space: nowrap; }
+.lang-switch { border: 1px solid var(--line); background: #fff; border-radius: var(--radius-btn); padding: .3rem .7rem; font-size: .8rem; white-space: nowrap; }
 .lang-switch a { color: var(--muted); text-decoration: none; }
-.lang-switch a.active { color: var(--text); font-weight: 600; }
+.lang-switch a.active { color: var(--ink); font-weight: 600; }
 
-/* Cards and buttons */
-.card { border: 1px solid var(--border); border-radius: 10px; }
+/* Bootstrap primary button in the team colors */
 .btn-primary {
-  --bs-btn-bg: var(--primary);
-  --bs-btn-border-color: var(--primary);
-  --bs-btn-hover-bg: var(--primary-dark);
-  --bs-btn-hover-border-color: var(--primary-dark);
+  --bs-btn-bg: var(--accent);
+  --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-bg: var(--navy);
+  --bs-btn-hover-border-color: var(--navy);
 }
 
-/* Soft status badges */
+/* Soft status badges (used by x-status-badge) */
 .badge-soft { display: inline-block; font-weight: 600; border-radius: 999px; padding: .3em .75em; font-size: .72rem; }
 .badge-soft.warning   { background: #fdf0d5; color: #9a5b00; }
 .badge-soft.success   { background: #def3ea; color: #1d7a52; }

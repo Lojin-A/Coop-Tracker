@@ -32,4 +32,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Placement::class, 'student_id');
     }
+        public function supervisedPlacements()
+        {
+            return $this->hasMany(Placement::class, 'supervisor_id');
+        }
 }

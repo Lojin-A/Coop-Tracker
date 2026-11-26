@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('placements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users');
+            // One placement per student: the database enforces it, not only the validation
+            $table->foreignId('student_id')->unique()->constrained('users');
             $table->foreignId('supervisor_id')->constrained('users');
             $table->foreignId('company_id')->constrained();
             $table->date('start_date');

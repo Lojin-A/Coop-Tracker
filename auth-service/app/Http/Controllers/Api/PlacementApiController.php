@@ -10,6 +10,21 @@ use Illuminate\Http\Request;
 
 class PlacementApiController extends Controller
 {
+    public function index(Request $request)
+    {
+        $user = $request->user();
+
+        $query = Placement::with(['student', 'company'])
+            ->where('status', 'active');
+
+        if ($user->role === 'supervisor') {
+            $query->where('supervisor_id', $user->id);
+        } elseif ($user->role === 'student') {
+            $query->where('student_id', $user->id);
+        }
+        return PlacementResource::collection($query->get());
+    }
+
     public function show(Request $request, Placement $placement)
     {
         $user = $request->user();

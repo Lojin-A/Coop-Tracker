@@ -2,19 +2,27 @@
 
 @section('role', 'Coordinator')
 @section('title', 'Training overview')
+
 @section('sidebar')
     @include('partials.sidemenu')
 @endsection
+
 @section('actions')
     <button type="button" class="btn-quiet px-3">EN | العربية</button>
     <button type="button" class="btn-accent px-3">+ New placement</button>
 @endsection
 
-@endsection
-
-@endsection
-
 @section('content')
+    <p class="mb-3 d-flex flex-wrap gap-3" style="font-size: 13px;">
+        @foreach ($stats['services'] as $service)
+            <span>
+                <span class="{{ $service['live'] ? 'badge-ok' : 'badge-pending' }}">
+                    ● {{ $service['live'] ? 'Live' : 'Offline' }}
+                </span>
+                <span class="text-muted-2">{{ $service['name'] }}</span>
+            </span>
+        @endforeach
+    </p>
 
     {{-- KPI cards --}}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3 mb-4">
@@ -22,9 +30,9 @@
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <p class="text-muted-2 mb-1" style="font-size: 14px;">{{ $kpi['label'] }}</p>
-                        <p class="num fw-bold mb-1" style="font-size: 32px;">{{ $kpi['value'] }}</p>
-                        <p class="mb-0 fw-semibold {{ $kpi['class'] }}" style="font-size: 13px;">{{ $kpi['note'] }}</p>
+                        <p class="kpi-label mb-1">{{ $kpi['label'] }}</p>
+                        <p class="kpi-value mb-1">{{ $kpi['value'] }}</p>
+                        <p class="kpi-note mb-0 {{ $kpi['class'] }}">{{ $kpi['note'] }}</p>
                     </div>
                 </div>
             </div>
@@ -37,14 +45,13 @@
         <div class="col-lg-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="mb-3" style="font-size: 17px;">Students per company</h2>
+                    <h2 class="mb-3">Students per company</h2>
 
                     @foreach ($stats['companies'] as $company)
                         <div class="d-flex align-items-center gap-2 mb-2" style="font-size: 14px;">
                             <span style="width: 120px;">{{ $company['name'] }}</span>
-                            <span class="flex-fill rounded" style="background: var(--track); height: 14px;">
-                                <span class="d-block rounded"
-                                      style="background: var(--accent); height: 14px; width: {{ $company['width'] }};"></span>
+                            <span class="flex-fill bar-track">
+                                <span class="d-block bar-fill" style="width: {{ $company['width'] }};"></span>
                             </span>
                             <span class="num text-end" style="width: 32px;">{{ $company['count'] }}</span>
                         </div>
@@ -56,7 +63,7 @@
         <div class="col-lg-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="mb-3" style="font-size: 17px;">Average hours logged per week</h2>
+                    <h2 class="mb-3">Average hours logged per week</h2>
 
                     <svg viewBox="0 0 560 220" role="img"
                          aria-label="Average weekly hours rising from 32 to 40 over 8 weeks"
@@ -90,14 +97,14 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="mb-0" style="font-size: 17px;">Late weekly reports</h2>
+                <h2 class="mb-0">Late weekly reports</h2>
                 <a href="#" class="fw-semibold text-decoration-none" style="font-size: 14px;">View all reports</a>
             </div>
 
             <div class="table-responsive">
-                <table class="table align-middle" style="font-size: 14px;">
+                <table class="table align-middle">
                     <thead>
-                        <tr class="text-muted-2">
+                        <tr>
                             <th>Student</th>
                             <th>Company</th>
                             <th>Week</th>
@@ -106,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($stats['late'] as $row)
+                        @forelse ($stats['late'] as $row)
                             <tr>
                                 <td>{{ $row['student'] }}</td>
                                 <td>{{ $row['company'] }}</td>
@@ -116,7 +123,11 @@
                                     <button type="button" class="btn btn-sm btn-outline-secondary">Send reminder</button>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-muted-2">No late reports</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

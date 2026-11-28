@@ -37,5 +37,13 @@ return [
         'attendance' => [
         'url' => env('ATTENDANCE_SERVICE_URL'),
     ],
+        'reports' => [
+        'url' => env('REPORTS_SERVICE_URL'),
+    ],
+        'auth' => [
+        'url'      => env('AUTH_SERVICE_URL'),
+        'email'    => env('AUTH_SERVICE_EMAIL'),
+        'password' => env('AUTH_SERVICE_PASSWORD'),
+    ],
 
 ];

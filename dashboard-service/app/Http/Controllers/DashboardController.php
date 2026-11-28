@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Services\AttendanceApi;
 use App\Services\StatsService;
+use App\Services\ReportsApi;
+use App\Services\AuthApi;
 
 class DashboardController extends Controller
 {
-    public function coordinator(StatsService $stats)
+       public function coordinator(StatsService $stats, ReportsApi $reports, AuthApi $auth)
     {
         return view('dashboard.coordinator', [
-            'stats' => $stats->coordinator(),
+            'stats' => $stats->coordinator($reports->late(), $auth->stats()),
         ]);
     }
 

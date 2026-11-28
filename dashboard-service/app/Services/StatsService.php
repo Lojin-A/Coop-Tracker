@@ -4,27 +4,77 @@ namespace App\Services;
 
 class StatsService
 {
-    public function coordinator()
+     public function coordinator($lateLive = null, $placementsLive = null)
     {
-        return [
-            'kpis' => [
-                ['label' => 'Active students',     'value' => '48',  'note' => '+6 this term',    'class' => 'text-accent'],
-                ['label' => 'Partner companies',   'value' => '12',  'note' => '3 new',           'class' => 'text-accent'],
-                ['label' => 'Avg hours completed', 'value' => '312', 'note' => 'of 640 required', 'class' => 'text-muted-2'],
-                ['label' => 'Late reports',        'value' => '7',   'note' => 'needs follow-up', 'class' => 'text-warn'],
-            ],
-            'companies'   => $this->bars([
-                ['SABIC', 9], ['RCJY', 8], ['Aramco', 7],
-                ['Marafiq', 6], ['Yanbu Cement', 5], ['Others', 13],
-            ], 13),
-            'weeks'       => $this->weeks(),
-            'line_points' => $this->linePoints(),
-            'late' => [
+        $isLateLive       = $lateLive !== null;
+        $isPlacementsLive = $placementsLive !== null;
+
+        // late reports
+        if ($isLateLive) {
+            $late = [];
+
+            foreach ($lateLive as $row) {
+                $late[] = [
+                    'student' => 'Placement #' . $row['placement_id'],
+                    'company' => '—',
+                    'week'    => 'Week ' . $row['week_no'],
+                    'days'    => round(Carbon::parse($row['submitted_at'])->diffInDays(now())) . ' days',
+                ];
+            }
+
+            $lateCount = count($late);
+        } else {
+            $late = [
                 ['student' => 'Sara Khan',   'company' => 'SABIC',   'week' => 'Week 6', 'days' => '3 days'],
                 ['student' => 'Noura Ali',   'company' => 'RCJY',    'week' => 'Week 6', 'days' => '2 days'],
                 ['student' => 'Maha Otaibi', 'company' => 'Marafiq', 'week' => 'Week 5', 'days' => '8 days'],
                 ['student' => 'Reem Harbi',  'company' => 'Aramco',  'week' => 'Week 6', 'days' => '1 day'],
+            ];
+
+            $lateCount = 7;
+        }
+
+        // placements
+        if ($isPlacementsLive) {
+            $activeStudents = $placementsLive['active_placements'];
+            $rows           = [];
+
+            foreach ($placementsLive['students_per_company'] as $company) {
+                $rows[] = [$company['company_name'], $company['students']];
+            }
+
+            $companyCount = count($rows);
+            $max          = 1;
+
+            foreach ($rows as $row) {
+                $max = max($max, $row[1]);
+            }
+
+            $companies = $this->bars($rows, $max);
+        } else {
+            $activeStudents = 48;
+            $companyCount   = 12;
+            $companies      = $this->bars([
+                ['SABIC', 9], ['RCJY', 8], ['Aramco', 7],
+                ['Marafiq', 6], ['Yanbu Cement', 5], ['Others', 13],
+            ], 13);
+        }
+
+        return [
+            'services' => [
+                ['name' => 'Auth & Placements', 'live' => $isPlacementsLive],
+                ['name' => 'Reports',           'live' => $isLateLive],
             ],
+            'kpis' => [
+                ['label' => 'Active students',     'value' => $activeStudents, 'note' => $isPlacementsLive ? 'live from auth service' : 'sample data', 'class' => 'text-accent'],
+                ['label' => 'Partner companies',   'value' => $companyCount,   'note' => $isPlacementsLive ? 'live from auth service' : 'sample data', 'class' => 'text-accent'],
+                ['label' => 'Avg hours completed', 'value' => '312',           'note' => 'of 640 required', 'class' => 'text-muted-2'],
+                ['label' => 'Late reports',        'value' => $lateCount,      'note' => $isLateLive ? 'live from reports service' : 'sample data', 'class' => 'text-warn'],
+            ],
+            'companies'   => $companies,
+            'weeks'       => $this->weeks(),
+            'line_points' => $this->linePoints(),
+            'late'        => $late,
         ];
     }
 

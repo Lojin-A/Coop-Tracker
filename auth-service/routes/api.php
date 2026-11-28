@@ -8,6 +8,7 @@ Route::post('/login', [AuthApiController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthApiController::class, 'me']);
+    Route::get('/placements', [PlacementApiController::class, 'index']);
     Route::get('/placements/{placement}', [PlacementApiController::class, 'show']);
     Route::get('/supervisors/{id}/placements', [PlacementApiController::class, 'bySupervisor']);
     Route::get('/stats/placements', [PlacementApiController::class, 'stats']);
